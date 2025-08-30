@@ -1,0 +1,36 @@
+name: Automated Data Logger
+
+on:
+  # This trigger is the key. It allows the workflow to be started
+  # manually from the Actions tab AND by an external API call, which
+  # is what cron-job.org will use.
+  workflow_dispatch:
+
+jobs:
+  capture-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run the Data Logger script
+        run: python logger.py
+
+      - name: Commit and push if data changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: Update data logs and state"
+          file_pattern: "data_logs/*.json current_state.json"
+          commit_user_name: "GitHub Actions Bot"
+          commit_user_email: "actions@github.com"
