@@ -1,8 +1,9 @@
 name: Automated Data Logger
 
 on:
-  # This trigger is perfect for your external cron job
   workflow_dispatch:
+  # schedule:
+  #   - cron: '*/15 * * * *' # Uncomment for your schedule
 
 jobs:
   capture-data:
@@ -19,12 +20,29 @@ jobs:
         with:
           python-version: '3.10'
 
+      # --- NEW STEP: Cache Python packages to speed up installation ---
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          # The key invalidates the cache if requirements.txt changes
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
-      # --- THIS IS THE FIX ---
-      # This new step downloads the actual browser needed by Playwright.
-      # The --with-deps flag is crucial for Linux runners.
+      # --- NEW STEP: Cache Playwright browsers to avoid re-downloading ---
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          # The key is based on the OS. Change 'v1' to 'v2' to manually clear the cache.
+          key: ${{ runner.os }}-playwright-v1
+          restore-keys: |
+            ${{ runner.os }}-playwright-
+
       - name: Install Playwright browsers
         run: playwright install --with-deps
 
@@ -32,7 +50,7 @@ jobs:
         run: python logger.py
 
       - name: Commit and push if data changed
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: actions/auto-commit-action@v5
         with:
           commit_message: "chore: Update data logs and state"
           file_pattern: "data_logs/*.json current_state.json"
