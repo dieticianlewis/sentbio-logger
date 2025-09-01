@@ -14,24 +14,11 @@
   "gnnx": {
     "wishlist": {},
     "leaderboard_simple": {
-      "position": "15th",
+      "position": "14th",
       "score": 2.9100000000000037
     },
     "leaderboard_detailed": {},
-    "recent_sends": [
-      {
-        "sender": "Anonymous",
-        "amount": "$50"
-      },
-      {
-        "sender": "Anonymous",
-        "amount": "$50"
-      },
-      {
-        "sender": "Anonymous",
-        "amount": "$50"
-      }
-    ]
+    "recent_sends": []
   },
   "brattyxmeri": {
     "wishlist": {
@@ -46,20 +33,7 @@
       "score": 21.6
     },
     "leaderboard_detailed": {},
-    "recent_sends": [
-      {
-        "sender": "Someone",
-        "amount": "$20"
-      },
-      {
-        "sender": "Someone",
-        "amount": "$20"
-      },
-      {
-        "sender": "Someone",
-        "amount": "$20"
-      }
-    ]
+    "recent_sends": []
   },
   "fairybrat": {
     "wishlist": {
@@ -74,40 +48,27 @@
       "score": 21.6
     },
     "leaderboard_detailed": {},
-    "recent_sends": [
-      {
-        "sender": "Someone",
-        "amount": "$34.69"
-      },
-      {
-        "sender": "Someone",
-        "amount": "$34.69"
-      },
-      {
-        "sender": "Someone",
-        "amount": "$50"
-      }
-    ]
+    "recent_sends": []
   },
   "digitalvicc": {
     "wishlist": {},
     "leaderboard_simple": {
       "position": "6th",
-      "score": 22.809999999999945
+      "score": 2.8099999999999454
     },
     "leaderboard_detailed": {},
     "recent_sends": [
       {
-        "sender": "Someone",
-        "amount": "\u20ac50"
+        "sender": " Someone",
+        "amount": " \u20ac 50"
       },
       {
-        "sender": "Someone",
-        "amount": "\u20ac50"
+        "sender": " Someone",
+        "amount": " \u20ac 50"
       },
       {
-        "sender": "XTX",
-        "amount": "\u20ac50"
+        "sender": " XTX",
+        "amount": " \u20ac 50"
       }
     ]
   }
