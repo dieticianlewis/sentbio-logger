@@ -1,19 +1,19 @@
 {
   "alquis": {
     "wishlist": {
-      "to talk": 550.01048546,
+      "to talk": 500.01048546000004,
       "autotweet minimum": 600.012783
     },
     "leaderboard": {
-      "position": "18th",
-      "amount_away": 20
+      "position": "2nd",
+      "amount_away": "20"
     }
   },
   "gnnx": {
     "wishlist": {},
     "leaderboard": {
-      "position": "18th",
-      "amount_away": 20
+      "position": "2nd",
+      "amount_away": "20"
     }
   }
 }
