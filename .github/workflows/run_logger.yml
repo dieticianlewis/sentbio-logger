@@ -1,9 +1,7 @@
 name: Automated Data Logger
 
 on:
-  # This trigger is the key. It allows the workflow to be started
-  # manually from the Actions tab AND by an external API call, which
-  # is what cron-job.org will use.
+  # This trigger is perfect for your external cron job
   workflow_dispatch:
 
 jobs:
@@ -23,6 +21,12 @@ jobs:
 
       - name: Install Python dependencies
         run: pip install -r requirements.txt
+
+      # --- THIS IS THE FIX ---
+      # This new step downloads the actual browser needed by Playwright.
+      # The --with-deps flag is crucial for Linux runners.
+      - name: Install Playwright browsers
+        run: playwright install --with-deps
 
       - name: Run the Data Logger script
         run: python logger.py
