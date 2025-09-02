@@ -6,7 +6,22 @@
     "\u272e\u272e\u272e\u272e": 0.0,
     "coffee/matcha\u272e": 165.0
   },
-  "leaderboard_simple": {},
+  "leaderboard_simple": {
+    "position": "2nd"
+  },
   "leaderboard_detailed": {},
-  "recent_sends": []
+  "recent_sends": [
+    {
+      "sender": "Someone",
+      "amount": "$20"
+    },
+    {
+      "sender": "Someone",
+      "amount": "$20"
+    },
+    {
+      "sender": "Someone",
+      "amount": "$20"
+    }
+  ]
 }

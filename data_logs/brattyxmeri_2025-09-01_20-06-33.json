@@ -7,9 +7,21 @@
     "coffee/matcha\u272e": 165.0
   },
   "leaderboard_simple": {
-    "position": "21st",
-    "score": 11.510000000000002
+    "position": "2nd"
   },
   "leaderboard_detailed": {},
-  "recent_sends": []
+  "recent_sends": [
+    {
+      "sender": "Someone",
+      "amount": "$20"
+    },
+    {
+      "sender": "Someone",
+      "amount": "$20"
+    },
+    {
+      "sender": "Someone",
+      "amount": "$20"
+    }
+  ]
 }

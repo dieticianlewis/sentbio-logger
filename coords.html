@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Coordinate Finder</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; background-color: #f0f0f0; }
+        h1 { color: #333; }
+    </style>
+</head>
+<body>
+    <h1>Mouse Coordinate Finder</h1>
+    <p>Keep this tab open. The X and Y coordinates of your mouse will be displayed in the tab's title.</p>
+    <p>Navigate to the target website in this window to find the coordinates of an element.</p>
+    
+    <script>
+        document.addEventListener('mousemove', function(e) {
+            // Update the document title with the live coordinates
+            document.title = `X: ${e.clientX}, Y: ${e.clientY}`;
+        });
+    </script>
+</body>
+</html>
