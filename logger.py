@@ -23,6 +23,9 @@ CLICK_COORDS = {"x": 790, "y": 371}
 STATE_FILE_TEMPLATE = "{username}_state.json"
 LOG_FOLDER = "data_logs"
 WISHLIST_API_URL = "https://firestore.googleapis.com/v1/projects/sent-wc254r/databases/(default)/documents/wishlists?pageSize=300"
+# --- NEW: API URL for simple leaderboard data ---
+LEADERBOARD_API_URL = "https://us-central1-sent-wc254r.cloudfunctions.net/fetchLeaderboardPosition"
+
 
 captured_console_data = {}
 
@@ -37,6 +40,24 @@ def get_all_wishlist_data():
         return response.json()
     except requests.exceptions.RequestException as e:
         print(f"Error fetching wishlist API: {e}")
+        return None
+
+# --- NEW: Function to get simple leaderboard data directly from the API ---
+def get_leaderboard_data(uid):
+    """Fetches the leaderboard data for a specific user."""
+    print(f"Fetching leaderboard data for UID: {uid}...")
+    try:
+        payload = {"data": {"uid": uid}} # Assuming the payload needs the UID
+        headers = {"Content-Type": "application/json"}
+        response = requests.post(LEADERBOARD_API_URL, headers=headers, json=payload, timeout=15)
+        response.raise_for_status()
+        data = response.json().get("result", {})
+        return {
+            "position": data.get("place"),
+            "amount_away": data.get("amountAway")
+        }
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching leaderboard API: {e}")
         return None
 
 def parse_and_filter_wishlists(api_data, target_uid):
@@ -60,14 +81,12 @@ def handle_console_message(msg):
     text = msg.text.strip()
 
     def parse_js_object_string(js_str):
-        """Safely converts a JavaScript-style object string to a Python dictionary."""
         py_str = js_str.replace('null', 'None').replace('true', 'True').replace('false', 'False')
         py_str = re.sub(r'([a-zA-Z_][a-zA-Z0-9_]*)', r"'\1'", py_str)
         py_str = py_str.replace("'None'", "None").replace("'True'", "True").replace("'False'", "False")
         py_str = py_str.replace('$', "'$'").replace('€', "'€'").replace('£', "'£'")
         return ast.literal_eval(py_str)
 
-    # Pattern 1: Recent Sends
     if text.startswith("recentSends response:"):
         print("  [Console Capture] Found Recent Sends data!")
         js_object_str = text.replace("recentSends response: ", "")
@@ -85,18 +104,13 @@ def handle_console_message(msg):
             print(f"  [Console Capture] ERROR: Could not parse recent sends: {e}")
         return
 
-    # Pattern 2: The NEW Rich Leaderboard Object
     if text.startswith("fetchLeaderboard response:"):
         print("  [Console Capture] Found RICH Leaderboard response!")
         js_object_str = text.replace("fetchLeaderboard response: ", "")
         try:
-            # 1. Add quotes to all keys
             cleaned_str = re.sub(r'([a-zA-Z_][a-zA-Z0-9_]*)\s*:', r'"\1":', js_object_str)
-            # 2. Add quotes to unquoted string values (like Anonymous)
             cleaned_str = re.sub(r':\s*([a-zA-Z_]+)', r': "\1"', cleaned_str)
-            # 3. Specifically handle the '19th' format
             cleaned_str = re.sub(r':\s*(\d+(st|nd|rd|th))', r': "\1"', cleaned_str)
-            # 4. Put back the keywords which should not be strings
             cleaned_str = cleaned_str.replace(': "null"', ': null')
             cleaned_str = cleaned_str.replace(': "true"', ': true')
             cleaned_str = cleaned_str.replace(': "false"', ': false')
@@ -107,20 +121,17 @@ def handle_console_message(msg):
             print(f"  [Console Capture] ERROR: Could not parse rich leaderboard: {e}")
         return
 
-    # Pattern 3 & 4: Simple Leaderboard Position and Score
     if re.fullmatch(r'\d+(st|nd|rd|th)', text):
         if "simple_leaderboard" not in captured_console_data: captured_console_data["simple_leaderboard"] = {}
         captured_console_data["simple_leaderboard"]["position"] = text
-        return # Important to return so '6th' isn't parsed as a number
+        return
 
-    # This block now correctly handles both integers and floats like '3', '85.37', etc.
     try:
         value = float(text)
         if value >= 0:
             if "simple_leaderboard" not in captured_console_data: captured_console_data["simple_leaderboard"] = {}
             captured_console_data["simple_leaderboard"]["score"] = value
     except ValueError:
-        # This will trigger if `text` is not a number, which is expected for most lines.
         pass
 
 def get_data_from_console_via_playwright(username, should_click_leaderboard):
@@ -137,9 +148,14 @@ def get_data_from_console_via_playwright(username, should_click_leaderboard):
             print(f"  Navigating to https://sent.bio/{username}...")
             page.goto(f"https://sent.bio/{username}", wait_until="load", timeout=45000)
 
-            print("  Waiting for app container...")
+            print("  Waiting for app container...") # <-- Now aligned correctly
             page.locator("flutter-view").wait_for(state='attached', timeout=30000)
-            time.sleep(3)
+
+            # --- THIS IS THE KEY CHANGE ---
+            # Wait for 5 seconds AFTER the app shell has loaded.
+            # This gives the page's internal scripts time to fetch and display the real data.
+            print("  Waiting 5 seconds for dynamic content to load...")
+            page.wait_for_timeout(5000)
 
             if should_click_leaderboard:
                 try:
@@ -187,12 +203,16 @@ if __name__ == "__main__":
 
         previous_state = read_state(username)
 
+        # --- MODIFIED: Gather data from all three sources ---
         wishlist = parse_and_filter_wishlists(full_wishlist_data, uid)
+        api_leaderboard_data = get_leaderboard_data(uid)
         console_data = get_data_from_console_via_playwright(username, should_click)
 
+        # --- MODIFIED: Assemble the current state with both simple leaderboard types ---
         current_state = {
             "wishlist": wishlist,
-            "leaderboard_simple": console_data.get("simple_leaderboard", {}),
+            "leaderboard_simple_api": api_leaderboard_data,
+            "leaderboard_simple": console_data.get("simple_leaderboard", {}), # From console
             "leaderboard_detailed": console_data.get("leaderboard_detailed", {}),
             "recent_sends": console_data.get("recent_sends", [])
         }

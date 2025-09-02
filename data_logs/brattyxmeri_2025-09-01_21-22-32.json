@@ -6,6 +6,10 @@
     "\u272e\u272e\u272e\u272e": 0.0,
     "coffee/matcha\u272e": 165.0
   },
+  "leaderboard_simple_api": {
+    "position": "6th",
+    "amount_away": 3
+  },
   "leaderboard_simple": {
     "position": "6th",
     "score": 3.0
@@ -17,7 +21,13 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 25
+          "payout": 65
+        },
+        {
+          "display_name": "Anonymous",
+          "username": "Anonymous",
+          "photo_url": null,
+          "payout": 41
         },
         {
           "display_name": "Anonymous",
@@ -29,13 +39,7 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 14
-        },
-        {
-          "display_name": "Anonymous",
-          "username": "Anonymous",
-          "photo_url": null,
-          "payout": 5
+          "payout": 7
         },
         {
           "display_name": "Anonymous",
@@ -45,7 +49,7 @@
         }
       ],
       "position": "6th",
-      "countdown": 85617211
+      "countdown": 81452366
     },
     "week": {
       "leaders": [
@@ -59,7 +63,7 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 1025
+          "payout": 1065
         },
         {
           "display_name": "Anonymous",
@@ -71,7 +75,7 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 514
+          "payout": 541
         },
         {
           "display_name": "Anonymous",
@@ -81,7 +85,7 @@
         }
       ],
       "position": "25th",
-      "countdown": 517616864
+      "countdown": 513451826
     },
     "month": {
       "leaders": [
@@ -95,7 +99,7 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 1006
+          "payout": 1057
         },
         {
           "display_name": "Anonymous",
@@ -107,7 +111,7 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 513
+          "payout": 539
         },
         {
           "display_name": "Anonymous",
@@ -117,7 +121,7 @@
         }
       ],
       "position": "25th",
-      "countdown": 2504816799
+      "countdown": 2500651755
     }
   },
   "recent_sends": [

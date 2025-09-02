@@ -1,0 +1,12 @@
+{
+  "wishlist": {},
+  "leaderboard_simple_api": {
+    "position": null,
+    "amount_away": null
+  },
+  "leaderboard_detailed_api": {},
+  "leaderboard_simple_console": {
+    "position": "6th",
+    "score": 7.0
+  }
+}

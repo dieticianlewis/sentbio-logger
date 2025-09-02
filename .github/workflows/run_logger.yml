@@ -2,13 +2,12 @@ name: Automated Data Logger
 
 on:
   workflow_dispatch:
-  # schedule:
-  #   - cron: '*/15 * * * *' # Uncomment for your schedule
 
 jobs:
   capture-data:
     runs-on: ubuntu-latest
     permissions:
+      # This permission is required for the action to push to your repository
       contents: write
 
     steps:
@@ -20,12 +19,10 @@ jobs:
         with:
           python-version: '3.10'
 
-      # --- NEW STEP: Cache Python packages to speed up installation ---
       - name: Cache pip packages
         uses: actions/cache@v4
         with:
           path: ~/.cache/pip
-          # The key invalidates the cache if requirements.txt changes
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
@@ -33,26 +30,27 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
-      # --- NEW STEP: Cache Playwright browsers to avoid re-downloading ---
       - name: Cache Playwright browsers
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
-          # The key is based on the OS. Change 'v1' to 'v2' to manually clear the cache.
           key: ${{ runner.os }}-playwright-v1
           restore-keys: |
             ${{ runner.os }}-playwright-
 
       - name: Install Playwright browsers
-        run: playwright install --with-deps
+        # --with-deps is crucial on Linux runners to install OS-level dependencies
+        run: playwright install --with-deps chromium
 
       - name: Run the Data Logger script
         run: python logger.py
 
       - name: Commit and push if data changed
-        uses: actions/auto-commit-action@v5
+        # --- FIX #1: Use the correct community action name ---
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: Update data logs and state"
-          file_pattern: "data_logs/*.json current_state.json"
+          # --- FIX #2: Remove the file_pattern to commit all changes automatically ---
+          # The action is smart enough to not commit if nothing has changed.
           commit_user_name: "GitHub Actions Bot"
           commit_user_email: "actions@github.com"

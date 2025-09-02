@@ -4,13 +4,12 @@
     "autotweet minimum": 600.012783
   },
   "leaderboard_simple_api": {
-    "position": "6th",
-    "amount_away": 7
+    "position": null,
+    "amount_away": null
   },
-  "leaderboard_simple": {
+  "leaderboard_detailed_api": {},
+  "leaderboard_simple_console": {
     "position": "6th",
     "score": 7.0
-  },
-  "leaderboard_detailed": {},
-  "recent_sends": []
+  }
 }

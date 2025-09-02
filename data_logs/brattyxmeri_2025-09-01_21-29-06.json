@@ -1,0 +1,18 @@
+{
+  "wishlist": {
+    "tribute\u272e": 649.9399999999999,
+    "\u272e\u272e\u272e": 800.0,
+    "tax\u272e": 250.0,
+    "\u272e\u272e\u272e\u272e": 0.0,
+    "coffee/matcha\u272e": 165.0
+  },
+  "leaderboard_simple_api": {
+    "position": null,
+    "amount_away": null
+  },
+  "leaderboard_detailed_api": {},
+  "leaderboard_simple_console": {
+    "position": "6th",
+    "score": 7.0
+  }
+}
