@@ -25,7 +25,6 @@ LOG_FOLDER = "data_logs"
 WISHLIST_API_URL = "https://firestore.googleapis.com/v1/projects/sent-wc254r/databases/(default)/documents/wishlists?pageSize=300"
 LEADERBOARD_API_URL = "https://us-central1-sent-wc254r.cloudfunctions.net/fetchLeaderboardPosition"
 
-
 captured_console_data = {}
 
 # --- Data Fetching and Parsing Functions ---
@@ -143,17 +142,27 @@ def get_data_from_console_via_playwright(username, should_click_leaderboard):
             page.on("console", handle_console_message)
 
             print(f"  Navigating to https://sent.bio/{username}...")
-            page.goto(f"https://sent.bio/{username}", wait_until="load", timeout=45000)
+            # Use wait_until='networkidle' or 'domcontentloaded' for potentially faster initial page load completion
+            # 'load' waits for all resources including images/fonts, which might not be strictly necessary
+            page.goto(f"https://sent.bio/{username}", wait_until="domcontentloaded", timeout=45000)
 
             print("  Waiting for app container...")
             page.locator("flutter-view").wait_for(state='attached', timeout=30000)
 
+            # --- OPTIMIZATION: Replace fixed wait_for_timeout with more specific waits if possible ---
+            # If there's a specific element that appears when dynamic content is loaded,
+            # wait for that element instead of a fixed 5-second timeout.
+            # For a Flutter app, this can be challenging as elements might not be in the DOM in a standard way.
+            # If you know a specific console message always appears when data is ready, you could wait for that.
+            # For now, sticking with wait_for_timeout as it's a robust fallback for complex SPAs like Flutter.
             print("  Waiting 5 seconds for dynamic content to load...")
-            page.wait_for_timeout(5000)
+            page.wait_for_timeout(5000) # Keep for now, but mark as potential future optimization
 
             if should_click_leaderboard:
                 try:
                     print(f"  Profile flagged for click. Clicking coordinates: X={CLICK_COORDS['x']}, Y={CLICK_COORDS['y']}")
+                    # If clicking consistently triggers a specific network request or element,
+                    # you could wait for that instead of just a console message (which might come later)
                     with page.expect_console_message(lambda msg: "fetchLeaderboard response:" in msg.text, timeout=10000):
                         page.mouse.click(CLICK_COORDS['x'], CLICK_COORDS['y'])
                     print("  Successfully clicked and detected leaderboard response.")
@@ -161,13 +170,13 @@ def get_data_from_console_via_playwright(username, should_click_leaderboard):
                     print(f"  Warning: Did not see the rich leaderboard response after clicking: {click_error}")
 
             print("  Waiting 2 seconds for streams to finalize...")
-            page.wait_for_timeout(2000)
+            page.wait_for_timeout(2000) # Keep for now, but mark as potential future optimization
             browser.close()
             return captured_console_data
     except Exception as e:
         print(f"An error occurred during browser automation for {username}: {e}")
         return {}
-
+        
 def read_state(username):
     state_file = STATE_FILE_TEMPLATE.format(username=username)
     if not os.path.exists(state_file): return {}

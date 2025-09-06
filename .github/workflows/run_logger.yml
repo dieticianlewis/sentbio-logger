@@ -7,7 +7,6 @@ jobs:
   capture-data:
     runs-on: ubuntu-latest
     permissions:
-      # This permission is required for the action to push to your repository
       contents: write
 
     steps:
@@ -31,6 +30,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Cache Playwright browsers
+        id: cache-playwright # Add an ID to reference this step's output
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
@@ -39,18 +39,25 @@ jobs:
             ${{ runner.os }}-playwright-
 
       - name: Install Playwright browsers
-        # --with-deps is crucial on Linux runners to install OS-level dependencies
+        # --- NEW CONDITION: Only run if cache was NOT a hit ---
+        if: steps.cache-playwright.outputs.cache-hit != 'true'
         run: playwright install --with-deps chromium
+        # Add a print statement to confirm if it ran or not for debugging
+        # You can remove this 'echo' line later if it's too noisy
+      - name: Debug Playwright Install Status
+        run: |
+          if [ "${{ steps.cache-playwright.outputs.cache-hit }}" == "true" ]; then
+            echo "Playwright browsers restored from cache, skipping install."
+          else
+            echo "Playwright browsers not found in cache, performed installation."
+          fi
 
       - name: Run the Data Logger script
         run: python logger.py
 
       - name: Commit and push if data changed
-        # --- FIX #1: Use the correct community action name ---
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: Update data logs and state"
-          # --- FIX #2: Remove the file_pattern to commit all changes automatically ---
-          # The action is smart enough to not commit if nothing has changed.
           commit_user_name: "GitHub Actions Bot"
           commit_user_email: "actions@github.com"
