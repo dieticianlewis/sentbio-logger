@@ -1,0 +1,141 @@
+{
+  "wishlist": {
+    "tribute\u272e": 649.9399999999999,
+    "\u272e\u272e\u272e": 800.0,
+    "tax\u272e": 250.0,
+    "\u272e\u272e\u272e\u272e": 0.0,
+    "coffee/matcha\u272e": 165.0
+  },
+  "leaderboard_simple_api": {
+    "position": "10th",
+    "amount_away": 13
+  },
+  "leaderboard_simple": {
+    "position": "10th",
+    "score": 13.0
+  },
+  "leaderboard_detailed": {
+    "day": {
+      "leaders": [
+        {
+          "display_name": "Anonymous",
+          "username": "Anonymous",
+          "photo_url": null,
+          "payout": 232
+        },
+        {
+          "display_name": "Anonymous",
+          "username": "Anonymous",
+          "photo_url": null,
+          "payout": 114
+        },
+        {
+          "display_name": "Anonymous",
+          "username": "Anonymous",
+          "photo_url": null,
+          "payout": 69
+        },
+        {
+          "display_name": "Anonymous",
+          "username": "Anonymous",
+          "photo_url": null,
+          "payout": 50
+        },
+        {
+          "display_name": "Anonymous",
+          "username": "Anonymous",
+          "photo_url": null,
+          "payout": 35
+        }
+      ],
+      "position": "10th",
+      "countdown": 66377432
+    },
+    "week": {
+      "leaders": [
+        {
+          "display_name": "Anonymous",
+          "username": "Anonymous",
+          "photo_url": null,
+          "payout": 1294
+        },
+        {
+          "display_name": "Anonymous",
+          "username": "Anonymous",
+          "photo_url": null,
+          "payout": 1232
+        },
+        {
+          "display_name": "Anonymous",
+          "username": "Anonymous",
+          "photo_url": null,
+          "payout": 614
+        },
+        {
+          "display_name": "Anonymous",
+          "username": "Anonymous",
+          "photo_url": null,
+          "payout": 559.13
+        },
+        {
+          "display_name": "Anonymous",
+          "username": "Anonymous",
+          "photo_url": null,
+          "payout": 496.75000000000006
+        }
+      ],
+      "position": "27th",
+      "countdown": 498376914
+    },
+    "month": {
+      "leaders": [
+        {
+          "display_name": "Anonymous",
+          "username": "Anonymous",
+          "photo_url": null,
+          "payout": 1294
+        },
+        {
+          "display_name": "Anonymous",
+          "username": "Anonymous",
+          "photo_url": null,
+          "payout": 1236
+        },
+        {
+          "display_name": "Anonymous",
+          "username": "Anonymous",
+          "photo_url": null,
+          "payout": 620
+        },
+        {
+          "display_name": "Anonymous",
+          "username": "Anonymous",
+          "photo_url": null,
+          "payout": 559.13
+        },
+        {
+          "display_name": "Anonymous",
+          "username": "Anonymous",
+          "photo_url": null,
+          "payout": 496.75000000000006
+        }
+      ],
+      "position": "27th",
+      "countdown": 2485576818
+    }
+  },
+  "recent_sends": [
+    {
+      "sender": "Someone",
+      "amount": "$20"
+    },
+    {
+      "sender": "Someone",
+      "amount": "$20"
+    },
+    {
+      "sender": "Someone",
+      "amount": "$20"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "wishlist": {},
+  "leaderboard_simple_api": {
+    "position": "14th",
+    "amount_away": 10
+  },
+  "leaderboard_simple": {
+    "position": "14th",
+    "score": 10.0
+  },
+  "leaderboard_detailed": {},
+  "recent_sends": [
+    {
+      "sender": "Anonymous",
+      "amount": "$50"
+    },
+    {
+      "sender": "Anonymous",
+      "amount": "$50"
+    },
+    {
+      "sender": "Anonymous",
+      "amount": "$50"
+    }
+  ]
+}
