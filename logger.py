@@ -23,7 +23,6 @@ CLICK_COORDS = {"x": 790, "y": 371}
 STATE_FILE_TEMPLATE = "{username}_state.json"
 LOG_FOLDER = "data_logs"
 WISHLIST_API_URL = "https://firestore.googleapis.com/v1/projects/sent-wc254r/databases/(default)/documents/wishlists?pageSize=300"
-# --- NEW: API URL for simple leaderboard data ---
 LEADERBOARD_API_URL = "https://us-central1-sent-wc254r.cloudfunctions.net/fetchLeaderboardPosition"
 
 
@@ -42,12 +41,11 @@ def get_all_wishlist_data():
         print(f"Error fetching wishlist API: {e}")
         return None
 
-# --- NEW: Function to get simple leaderboard data directly from the API ---
 def get_leaderboard_data(uid):
     """Fetches the leaderboard data for a specific user."""
     print(f"Fetching leaderboard data for UID: {uid}...")
     try:
-        payload = {"data": {"uid": uid}} # Assuming the payload needs the UID
+        payload = {"data": {"uid": uid}}
         headers = {"Content-Type": "application/json"}
         response = requests.post(LEADERBOARD_API_URL, headers=headers, json=payload, timeout=15)
         response.raise_for_status()
@@ -75,7 +73,6 @@ def parse_and_filter_wishlists(api_data, target_uid):
                 user_wishlist[title] = float(funded)
     return user_wishlist
 
-# --- THIS IS THE ULTIMATE CONSOLE PARSER ---
 def handle_console_message(msg):
     global captured_console_data
     text = msg.text.strip()
@@ -148,12 +145,9 @@ def get_data_from_console_via_playwright(username, should_click_leaderboard):
             print(f"  Navigating to https://sent.bio/{username}...")
             page.goto(f"https://sent.bio/{username}", wait_until="load", timeout=45000)
 
-            print("  Waiting for app container...") # <-- Now aligned correctly
+            print("  Waiting for app container...")
             page.locator("flutter-view").wait_for(state='attached', timeout=30000)
 
-            # --- THIS IS THE KEY CHANGE ---
-            # Wait for 5 seconds AFTER the app shell has loaded.
-            # This gives the page's internal scripts time to fetch and display the real data.
             print("  Waiting 5 seconds for dynamic content to load...")
             page.wait_for_timeout(5000)
 
@@ -194,6 +188,9 @@ if __name__ == "__main__":
         print("Could not fetch wishlist data. Aborting.")
         exit()
 
+    # Flag to determine if alquis' specific wishlist items have changed
+    has_alquis_wishlist_changed = False
+
     for profile in PROFILES_TO_TRACK:
         username = profile["username"]
         uid = profile["uid"]
@@ -203,16 +200,14 @@ if __name__ == "__main__":
 
         previous_state = read_state(username)
 
-        # --- MODIFIED: Gather data from all three sources ---
         wishlist = parse_and_filter_wishlists(full_wishlist_data, uid)
         api_leaderboard_data = get_leaderboard_data(uid)
         console_data = get_data_from_console_via_playwright(username, should_click)
 
-        # --- MODIFIED: Assemble the current state with both simple leaderboard types ---
         current_state = {
             "wishlist": wishlist,
             "leaderboard_simple_api": api_leaderboard_data,
-            "leaderboard_simple": console_data.get("simple_leaderboard", {}), # From console
+            "leaderboard_simple": console_data.get("simple_leaderboard", {}),
             "leaderboard_detailed": console_data.get("leaderboard_detailed", {}),
             "recent_sends": console_data.get("recent_sends", [])
         }
@@ -220,16 +215,39 @@ if __name__ == "__main__":
         print("--- Parsed Data ---")
         print(json.dumps(current_state, indent=2))
 
+        # Check for *any* changes to the current profile's data
         if current_state != previous_state:
-            print("\nChange detected! Saving new data log and updating state file.")
-            if not os.path.exists(LOG_FOLDER): os.makedirs(LOG_FOLDER)
-            now = datetime.now(ZoneInfo("America/New_York"))
-            filename = f"{username}_{now.strftime('%Y-%m-%d_%H-%M-%S')}.json"
-            filepath = os.path.join(LOG_FOLDER, filename)
-            with open(filepath, 'w', encoding='utf-8') as f:
-                json.dump(current_state, f, indent=2)
-            print(f"SUCCESS: New data log saved to '{filepath}'")
+            print(f"\nChange detected for {username}! Updating state file.")
             write_state(username, current_state)
             print(f"SUCCESS: State file '{username}_state.json' updated.")
+
+            # Specifically check if 'alquis'' specific wishlist items have changed
+            if username == "alquis":
+                previous_alquis_wishlist = previous_state.get("wishlist", {})
+                current_alquis_wishlist = current_state.get("wishlist", {})
+
+                # Check "to talk"
+                if previous_alquis_wishlist.get("to talk") != current_alquis_wishlist.get("to talk"):
+                    print("  'alquis' 'to talk' wishlist item changed.")
+                    has_alquis_wishlist_changed = True
+                # Check "autotweet minimum"
+                if previous_alquis_wishlist.get("autotweet minimum") != current_alquis_wishlist.get("autotweet minimum"):
+                    print("  'alquis' 'autotweet minimum' wishlist item changed.")
+                    has_alquis_wishlist_changed = True
         else:
-            print("\nNo changes detected for this user.")
+            print(f"\nNo changes detected for {username}.")
+
+    # After processing all profiles, if alquis' specific wishlist items changed, save a log
+    if has_alquis_wishlist_changed:
+        print("\n--- Alquis' specified wishlist items changed! Saving a new combined data log. ---")
+        if not os.path.exists(LOG_FOLDER): os.makedirs(LOG_FOLDER)
+        now = datetime.now(ZoneInfo("America/New_York"))
+        # Get the current state of alquis to save in the log
+        alquis_current_state_for_log = read_state("alquis") # Re-read the updated state for alquis
+        filename = f"alquis_wishlist_update_{now.strftime('%Y-%m-%d_%H-%M-%S')}.json"
+        filepath = os.path.join(LOG_FOLDER, filename)
+        with open(filepath, 'w', encoding='utf-8') as f:
+            json.dump(alquis_current_state_for_log, f, indent=2)
+        print(f"SUCCESS: New data log for alquis' wishlist update saved to '{filepath}'")
+    else:
+        print("\nAlquis' specified wishlist items did not change, no new log file created.")
