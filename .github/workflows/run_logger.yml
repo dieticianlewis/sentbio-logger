@@ -30,7 +30,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Cache Playwright browsers
-        id: cache-playwright # Add an ID to reference this step's output
+        id: cache-playwright
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
@@ -39,11 +39,9 @@ jobs:
             ${{ runner.os }}-playwright-
 
       - name: Install Playwright browsers
-        # --- NEW CONDITION: Only run if cache was NOT a hit ---
         if: steps.cache-playwright.outputs.cache-hit != 'true'
         run: playwright install --with-deps chromium
-        # Add a print statement to confirm if it ran or not for debugging
-        # You can remove this 'echo' line later if it's too noisy
+
       - name: Debug Playwright Install Status
         run: |
           if [ "${{ steps.cache-playwright.outputs.cache-hit }}" == "true" ]; then
@@ -52,18 +50,13 @@ jobs:
             echo "Playwright browsers not found in cache, performed installation."
           fi
 
-        - name: Run the Data Logger script
-        # --- THIS IS THE NEW PART ---
+      - name: Run the Data Logger script
         env:
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
           TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
           TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
-        # ----------------------------
         run: python logger.py
-
-      - name: Commit and push if data changed
-        uses: stefanzweifel/git-auto-commit-action@v5
 
       - name: Commit and push if data changed
         uses: stefanzweifel/git-auto-commit-action@v5
