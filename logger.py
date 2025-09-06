@@ -8,6 +8,12 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 from playwright.sync_api import sync_playwright
 import ast
+import tweepy
+
+# This script logs data for specified user profiles from sent.bio.
+# It uses a hybrid approach, fetching data from public APIs and using Playwright
+# for data only accessible via the frontend. It also includes a mechanism to
+# automatically post tweets when specific wishlist fundraising goals reach new milestones.
 
 load_dotenv()
 
@@ -25,9 +31,49 @@ LOG_FOLDER = "data_logs"
 WISHLIST_API_URL = "https://firestore.googleapis.com/v1/projects/sent-wc254r/databases/(default)/documents/wishlists?pageSize=300"
 LEADERBOARD_API_URL = "https://us-central1-sent-wc254r.cloudfunctions.net/fetchLeaderboardPosition"
 
+# --- Configuration for Automated Tweets ---
+# This dictionary defines which wishlist items trigger tweets for which user.
+TWEET_CONFIG = {
+    "alquis": {
+        "to talk": {
+            "threshold": 50,
+            "message": "Keira the greedy predator @alquis13 got sent $50 'to talk' at {est_time} EST #abuser"
+        },
+        "autotweet minimum": {
+            "threshold": 100,
+            "message": "Keira the greedy predator @alquis13 got sent $100 'autotweet minimum' at {est_time} EST #abuser"
+        }
+    }
+}
+
+
 captured_console_data = {}
 
-# --- Data Fetching and Parsing Functions ---
+# --- Helper Functions ---
+
+def post_to_twitter(message):
+    """Posts a message to Twitter using credentials from environment variables."""
+    # Check if credentials are set, if not, just print and simulate success for local testing
+    if not all(k in os.environ for k in ['TWITTER_API_KEY', 'TWITTER_API_SECRET', 'TWITTER_ACCESS_TOKEN', 'TWITTER_ACCESS_TOKEN_SECRET']):
+        print("\n--- TWITTER SIMULATION MODE ---")
+        print("Twitter API credentials not found in environment variables.")
+        print(f"Would have tweeted: \"{message}\"")
+        print("-------------------------------\n")
+        return True # Return True to allow the script to continue locally without keys
+
+    try:
+        client = tweepy.Client(
+            consumer_key=os.environ['TWITTER_API_KEY'],
+            consumer_secret=os.environ['TWITTER_API_SECRET'],
+            access_token=os.environ['TWITTER_ACCESS_TOKEN'],
+            access_token_secret=os.environ['TWITTER_ACCESS_TOKEN_SECRET']
+        )
+        response = client.create_tweet(text=message)
+        print(f"SUCCESS: Tweet posted! ID: {response.data['id']}")
+        return True
+    except Exception as e:
+        print(f"ERROR: Failed to post tweet: {e}")
+        return False
 
 def get_all_wishlist_data():
     """Fetches the entire public wishlist collection via direct API call."""
@@ -110,7 +156,6 @@ def handle_console_message(msg):
             cleaned_str = cleaned_str.replace(': "null"', ': null')
             cleaned_str = cleaned_str.replace(': "true"', ': true')
             cleaned_str = cleaned_str.replace(': "false"', ': false')
-
             captured_console_data["leaderboard_detailed"] = json.loads(cleaned_str)
             print("  [Console Capture] SUCCESS: Successfully parsed rich leaderboard.")
         except Exception as e:
@@ -142,27 +187,15 @@ def get_data_from_console_via_playwright(username, should_click_leaderboard):
             page.on("console", handle_console_message)
 
             print(f"  Navigating to https://sent.bio/{username}...")
-            # Use wait_until='networkidle' or 'domcontentloaded' for potentially faster initial page load completion
-            # 'load' waits for all resources including images/fonts, which might not be strictly necessary
-            page.goto(f"https://sent.bio/{username}", wait_until="domcontentloaded", timeout=45000)
-
+            page.goto(f"https://sent.bio/{username}", wait_until="load", timeout=45000)
             print("  Waiting for app container...")
             page.locator("flutter-view").wait_for(state='attached', timeout=30000)
-
-            # --- OPTIMIZATION: Replace fixed wait_for_timeout with more specific waits if possible ---
-            # If there's a specific element that appears when dynamic content is loaded,
-            # wait for that element instead of a fixed 5-second timeout.
-            # For a Flutter app, this can be challenging as elements might not be in the DOM in a standard way.
-            # If you know a specific console message always appears when data is ready, you could wait for that.
-            # For now, sticking with wait_for_timeout as it's a robust fallback for complex SPAs like Flutter.
             print("  Waiting 5 seconds for dynamic content to load...")
-            page.wait_for_timeout(5000) # Keep for now, but mark as potential future optimization
+            page.wait_for_timeout(5000)
 
             if should_click_leaderboard:
                 try:
                     print(f"  Profile flagged for click. Clicking coordinates: X={CLICK_COORDS['x']}, Y={CLICK_COORDS['y']}")
-                    # If clicking consistently triggers a specific network request or element,
-                    # you could wait for that instead of just a console message (which might come later)
                     with page.expect_console_message(lambda msg: "fetchLeaderboard response:" in msg.text, timeout=10000):
                         page.mouse.click(CLICK_COORDS['x'], CLICK_COORDS['y'])
                     print("  Successfully clicked and detected leaderboard response.")
@@ -170,13 +203,13 @@ def get_data_from_console_via_playwright(username, should_click_leaderboard):
                     print(f"  Warning: Did not see the rich leaderboard response after clicking: {click_error}")
 
             print("  Waiting 2 seconds for streams to finalize...")
-            page.wait_for_timeout(2000) # Keep for now, but mark as potential future optimization
+            page.wait_for_timeout(2000)
             browser.close()
             return captured_console_data
     except Exception as e:
         print(f"An error occurred during browser automation for {username}: {e}")
         return {}
-        
+
 def read_state(username):
     state_file = STATE_FILE_TEMPLATE.format(username=username)
     if not os.path.exists(state_file): return {}
@@ -189,15 +222,17 @@ def write_state(username, data):
     with open(state_file, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2)
 
+# --- Main Execution ---
 if __name__ == "__main__":
-    print("Starting Ultimate Hybrid Data Logger v4.0...")
+    print("Starting Ultimate Hybrid Data Logger v5.0 with Tweeting...")
 
     full_wishlist_data = get_all_wishlist_data()
     if not full_wishlist_data:
         print("Could not fetch wishlist data. Aborting.")
         exit()
-
-    # Flag to determine if alquis' specific wishlist items have changed
+        
+    now_est_str = datetime.now(ZoneInfo("America/New_York")).strftime("%H:%M")
+    
     has_alquis_wishlist_changed = False
 
     for profile in PROFILES_TO_TRACK:
@@ -208,7 +243,6 @@ if __name__ == "__main__":
         print(f"\n--- Processing Profile: {username} ---")
 
         previous_state = read_state(username)
-
         wishlist = parse_and_filter_wishlists(full_wishlist_data, uid)
         api_leaderboard_data = get_leaderboard_data(uid)
         console_data = get_data_from_console_via_playwright(username, should_click)
@@ -223,36 +257,59 @@ if __name__ == "__main__":
 
         print("--- Parsed Data ---")
         print(json.dumps(current_state, indent=2))
-
-        # Check for *any* changes to the current profile's data
+        
         if current_state != previous_state:
             print(f"\nChange detected for {username}! Updating state file.")
             write_state(username, current_state)
             print(f"SUCCESS: State file '{username}_state.json' updated.")
 
-            # Specifically check if 'alquis'' specific wishlist items have changed
+            # --- Check for tweetable milestone changes for the specific user ---
+            if username in TWEET_CONFIG:
+                print(f"Found tweet configuration for '{username}'. Checking for milestones...")
+                user_tweet_config = TWEET_CONFIG[username]
+                previous_wishlist = previous_state.get("wishlist", {})
+                current_wishlist = current_state.get("wishlist", {})
+
+                for item_name, config in user_tweet_config.items():
+                    prev_val = previous_wishlist.get(item_name, 0.0)
+                    curr_val = current_wishlist.get(item_name, 0.0)
+                    threshold = config["threshold"]
+
+                    if curr_val > prev_val: # Only proceed if value has increased
+                        # Using integer division to see how many thresholds were crossed
+                        prev_milestones = int(prev_val // threshold)
+                        curr_milestones = int(curr_val // threshold)
+                        
+                        num_new_tweets = curr_milestones - prev_milestones
+
+                        if num_new_tweets > 0:
+                            print(f"  MILESTONE REACHED for '{item_name}'! Change from ${prev_val:.2f} to ${curr_val:.2f}. Need to send {num_new_tweets} tweet(s).")
+                            # Send a tweet for each milestone crossed
+                            for i in range(num_new_tweets):
+                                message = config["message"].format(
+                                    threshold=threshold,
+                                    total_funded=curr_val,
+                                    est_time=now_est_str 
+                                )
+                                post_to_twitter(message)
+                                time.sleep(2)
+            
+            # This logic for the log file also remains the same
             if username == "alquis":
                 previous_alquis_wishlist = previous_state.get("wishlist", {})
                 current_alquis_wishlist = current_state.get("wishlist", {})
-
-                # Check "to talk"
                 if previous_alquis_wishlist.get("to talk") != current_alquis_wishlist.get("to talk"):
-                    print("  'alquis' 'to talk' wishlist item changed.")
                     has_alquis_wishlist_changed = True
-                # Check "autotweet minimum"
                 if previous_alquis_wishlist.get("autotweet minimum") != current_alquis_wishlist.get("autotweet minimum"):
-                    print("  'alquis' 'autotweet minimum' wishlist item changed.")
                     has_alquis_wishlist_changed = True
         else:
             print(f"\nNo changes detected for {username}.")
 
-    # After processing all profiles, if alquis' specific wishlist items changed, save a log
     if has_alquis_wishlist_changed:
         print("\n--- Alquis' specified wishlist items changed! Saving a new combined data log. ---")
         if not os.path.exists(LOG_FOLDER): os.makedirs(LOG_FOLDER)
         now = datetime.now(ZoneInfo("America/New_York"))
-        # Get the current state of alquis to save in the log
-        alquis_current_state_for_log = read_state("alquis") # Re-read the updated state for alquis
+        alquis_current_state_for_log = read_state("alquis")
         filename = f"alquis_wishlist_update_{now.strftime('%Y-%m-%d_%H-%M-%S')}.json"
         filepath = os.path.join(LOG_FOLDER, filename)
         with open(filepath, 'w', encoding='utf-8') as f:
