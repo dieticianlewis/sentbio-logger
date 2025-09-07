@@ -10,11 +10,11 @@
     },
     {
       "sender": "Someone",
-      "amount": "$50"
+      "amount": "\u20ac50"
     },
     {
       "sender": "Someone",
-      "amount": "$100"
+      "amount": "$50"
     }
   ]
 }
