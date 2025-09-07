@@ -7,12 +7,12 @@
     "coffee/matcha\u272e": 165.0
   },
   "leaderboard_simple_api": {
-    "position": "14th",
-    "amount_away": 24
+    "position": "15th",
+    "amount_away": 10.73
   },
   "leaderboard_simple": {
-    "position": "14th",
-    "score": 24.0
+    "position": "15th",
+    "score": 10.73
   },
   "leaderboard_detailed": {
     "day": {
@@ -48,8 +48,8 @@
           "payout": 82
         }
       ],
-      "position": "14th",
-      "countdown": 60778322
+      "position": "15th",
+      "countdown": 60661369
     },
     "week": {
       "leaders": [
@@ -85,7 +85,7 @@
         }
       ],
       "position": "40th",
-      "countdown": 60777825
+      "countdown": 60660963
     },
     "month": {
       "leaders": [
@@ -121,7 +121,7 @@
         }
       ],
       "position": "40th",
-      "countdown": 2047977754
+      "countdown": 2047860891
     }
   },
   "recent_sends": [
