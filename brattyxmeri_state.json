@@ -7,11 +7,11 @@
     "coffee/matcha\u272e": 165.0
   },
   "leaderboard_simple_api": {
-    "position": "7th",
+    "position": "8th",
     "amount_away": 18
   },
   "leaderboard_simple": {
-    "position": "7th",
+    "position": "8th",
     "score": 18.0
   },
   "leaderboard_detailed": {
@@ -22,6 +22,12 @@
           "username": "Anonymous",
           "photo_url": null,
           "payout": 1000
+        },
+        {
+          "display_name": "Anonymous",
+          "username": "Anonymous",
+          "photo_url": null,
+          "payout": 200
         },
         {
           "display_name": "Anonymous",
@@ -40,16 +46,10 @@
           "username": "Anonymous",
           "photo_url": null,
           "payout": 27
-        },
-        {
-          "display_name": "Anonymous",
-          "username": "Anonymous",
-          "photo_url": null,
-          "payout": 24
         }
       ],
-      "position": "7th",
-      "countdown": 78423483
+      "position": "8th",
+      "countdown": 78304012
     },
     "week": {
       "leaders": [
@@ -81,11 +81,11 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 2166.54
+          "payout": 2366.54
         }
       ],
       "position": "40th",
-      "countdown": 78422976
+      "countdown": 78303496
     },
     "month": {
       "leaders": [
@@ -117,11 +117,11 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 2166.54
+          "payout": 2366.54
         }
       ],
       "position": "40th",
-      "countdown": 2065622916
+      "countdown": 2065503429
     }
   },
   "recent_sends": [
