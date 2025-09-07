@@ -3,14 +3,8 @@
     "to talk": 750.00175546,
     "autotweet minimum": 750.012783
   },
-  "leaderboard_simple_api": {
-    "position": "16th",
-    "amount_away": 10.73
-  },
-  "leaderboard_simple": {
-    "position": "3rd",
-    "score": 154.0
-  },
+  "leaderboard_simple_api": null,
+  "leaderboard_simple": {},
   "leaderboard_detailed": {},
   "recent_sends": []
 }

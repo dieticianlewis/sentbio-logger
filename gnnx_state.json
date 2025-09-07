@@ -1,13 +1,7 @@
 {
   "wishlist": {},
-  "leaderboard_simple_api": {
-    "position": "16th",
-    "amount_away": 10.73
-  },
-  "leaderboard_simple": {
-    "position": "16th",
-    "score": 10.73
-  },
+  "leaderboard_simple_api": null,
+  "leaderboard_simple": {},
   "leaderboard_detailed": {},
   "recent_sends": [
     {
