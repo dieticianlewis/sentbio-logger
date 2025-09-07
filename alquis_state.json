@@ -5,11 +5,11 @@
   },
   "leaderboard_simple_api": {
     "position": "2nd",
-    "amount_away": "20"
+    "amount_away": 1000
   },
   "leaderboard_simple": {
     "position": "2nd",
-    "score": 20.0
+    "score": 1000.0
   },
   "leaderboard_detailed": {},
   "recent_sends": []
