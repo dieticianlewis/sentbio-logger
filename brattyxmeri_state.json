@@ -11,7 +11,7 @@
     "amount_away": 10.73
   },
   "leaderboard_simple": {
-    "position": "16th",
+    "position": "17th",
     "score": 10.73
   },
   "leaderboard_detailed": {
@@ -48,8 +48,8 @@
           "payout": 105
         }
       ],
-      "position": "16th",
-      "countdown": 50226262
+      "position": "17th",
+      "countdown": 50099397
     },
     "week": {
       "leaders": [
@@ -85,7 +85,7 @@
         }
       ],
       "position": "41st",
-      "countdown": 50225873
+      "countdown": 50098952
     },
     "month": {
       "leaders": [
@@ -121,7 +121,7 @@
         }
       ],
       "position": "41st",
-      "countdown": 2037425815
+      "countdown": 2037298891
     }
   },
   "recent_sends": [
