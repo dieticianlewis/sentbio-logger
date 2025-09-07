@@ -49,7 +49,7 @@
         }
       ],
       "position": "20th",
-      "countdown": 23583649
+      "countdown": 23461943
     },
     "week": {
       "leaders": [
@@ -85,7 +85,7 @@
         }
       ],
       "position": "41st",
-      "countdown": 23583097
+      "countdown": 23461449
     },
     "month": {
       "leaders": [
@@ -93,7 +93,7 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 6722
+          "payout": 6742
         },
         {
           "display_name": "Anonymous",
@@ -121,7 +121,7 @@
         }
       ],
       "position": "41st",
-      "countdown": 2010783037
+      "countdown": 2010661365
     }
   },
   "recent_sends": [
