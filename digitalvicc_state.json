@@ -1,12 +1,12 @@
 {
   "wishlist": {},
   "leaderboard_simple_api": {
-    "position": "2nd",
-    "amount_away": 1000
+    "position": "7th",
+    "amount_away": 2
   },
   "leaderboard_simple": {
-    "position": "2nd",
-    "score": 1000.0
+    "position": "7th",
+    "score": 2.0
   },
   "leaderboard_detailed": {},
   "recent_sends": [
