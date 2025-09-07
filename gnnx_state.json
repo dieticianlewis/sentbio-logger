@@ -5,11 +5,15 @@
     "amount_away": 10.73
   },
   "leaderboard_simple": {
-    "position": "6th",
-    "score": 13.0
+    "position": "4th",
+    "score": 25.0
   },
   "leaderboard_detailed": {},
   "recent_sends": [
+    {
+      "sender": "Someone",
+      "amount": "$150"
+    },
     {
       "sender": "Someone",
       "amount": "$50"
@@ -17,10 +21,6 @@
     {
       "sender": "Someone",
       "amount": "$100"
-    },
-    {
-      "sender": "Someone",
-      "amount": "$200"
     }
   ]
 }
