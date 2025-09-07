@@ -8,11 +8,11 @@
   },
   "leaderboard_simple_api": {
     "position": "7th",
-    "amount_away": 2
+    "amount_away": 18
   },
   "leaderboard_simple": {
     "position": "7th",
-    "score": 2.0
+    "score": 18.0
   },
   "leaderboard_detailed": {
     "day": {
@@ -27,7 +27,7 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 42
+          "payout": 66
         },
         {
           "display_name": "Anonymous",
@@ -45,11 +45,11 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 18
+          "payout": 24
         }
       ],
       "position": "7th",
-      "countdown": 82619481
+      "countdown": 82504364
     },
     "week": {
       "leaders": [
@@ -57,7 +57,7 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 6042
+          "payout": 6066
         },
         {
           "display_name": "Anonymous",
@@ -85,7 +85,7 @@
         }
       ],
       "position": "40th",
-      "countdown": 82618985
+      "countdown": 82503934
     },
     "month": {
       "leaders": [
@@ -93,7 +93,7 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 6040
+          "payout": 6063
         },
         {
           "display_name": "Anonymous",
@@ -105,7 +105,7 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 3020
+          "payout": 3042
         },
         {
           "display_name": "Anonymous",
@@ -121,8 +121,21 @@
         }
       ],
       "position": "40th",
-      "countdown": 2069818920
+      "countdown": 2069703870
     }
   },
-  "recent_sends": []
+  "recent_sends": [
+    {
+      "sender": "Someone",
+      "amount": "$33.33"
+    },
+    {
+      "sender": "Someone",
+      "amount": "$20"
+    },
+    {
+      "sender": "Someone",
+      "amount": "$20"
+    }
+  ]
 }

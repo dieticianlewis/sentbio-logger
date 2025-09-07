@@ -9,5 +9,18 @@
     "score": 18.0
   },
   "leaderboard_detailed": {},
-  "recent_sends": []
+  "recent_sends": [
+    {
+      "sender": "Someone",
+      "amount": "$50"
+    },
+    {
+      "sender": "Someone",
+      "amount": "$100"
+    },
+    {
+      "sender": "Someone",
+      "amount": "$200"
+    }
+  ]
 }
