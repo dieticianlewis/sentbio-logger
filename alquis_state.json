@@ -4,14 +4,8 @@
     "ub fee": 0.0,
     "autotweet minimum": 750.012783
   },
-  "leaderboard_simple_api": {
-    "position": "22nd",
-    "amount_away": 10.73
-  },
-  "leaderboard_simple": {
-    "position": "5th",
-    "score": 0.03999999999996362
-  },
+  "leaderboard_simple_api": null,
+  "leaderboard_simple": {},
   "leaderboard_detailed": {},
   "recent_sends": []
 }
