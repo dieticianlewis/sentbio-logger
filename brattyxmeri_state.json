@@ -39,7 +39,7 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 51
+          "payout": 73
         },
         {
           "display_name": "Anonymous",
@@ -49,7 +49,7 @@
         }
       ],
       "position": "8th",
-      "countdown": 77462618
+      "countdown": 77313208
     },
     "week": {
       "leaders": [
@@ -69,7 +69,7 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 3051
+          "payout": 3073
         },
         {
           "display_name": "Anonymous",
@@ -85,7 +85,7 @@
         }
       ],
       "position": "40th",
-      "countdown": 77462094
+      "countdown": 77312747
     },
     "month": {
       "leaders": [
@@ -93,7 +93,7 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 6101
+          "payout": 6116
         },
         {
           "display_name": "Anonymous",
@@ -121,7 +121,7 @@
         }
       ],
       "position": "40th",
-      "countdown": 2064661903
+      "countdown": 2064512680
     }
   },
   "recent_sends": [
