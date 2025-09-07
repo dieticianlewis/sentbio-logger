@@ -7,12 +7,12 @@
     "\ud801\ude5a \u2027\u208a\u02da \u22c5": 0.0
   },
   "leaderboard_simple_api": {
-    "position": "23rd",
-    "amount_away": 0.57
+    "position": "2nd",
+    "amount_away": "20"
   },
   "leaderboard_simple": {
-    "position": "23rd",
-    "score": 0.57
+    "position": "2nd",
+    "score": 20.0
   },
   "leaderboard_detailed": {},
   "recent_sends": [
