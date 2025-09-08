@@ -8,7 +8,7 @@
   },
   "leaderboard_simple_api": null,
   "leaderboard_simple": {
-    "position": "9th",
+    "position": "10th",
     "score": 10.0
   },
   "leaderboard_detailed": {
@@ -42,11 +42,11 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 36
+          "payout": 40
         }
       ],
-      "position": "9th",
-      "countdown": 76265083
+      "position": "10th",
+      "countdown": 76128529
     },
     "week": {
       "leaders": [
@@ -78,11 +78,11 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 36
+          "payout": 40
         }
       ],
-      "position": "9th",
-      "countdown": 594664579
+      "position": "10th",
+      "countdown": 594528060
     },
     "month": {
       "leaders": [
@@ -117,8 +117,8 @@
           "payout": 2544.2
         }
       ],
-      "position": "42nd",
-      "countdown": 1977064494
+      "position": "43rd",
+      "countdown": 1976927978
     }
   },
   "recent_sends": [
