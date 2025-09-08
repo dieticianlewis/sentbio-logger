@@ -8,7 +8,7 @@
   },
   "leaderboard_simple_api": null,
   "leaderboard_simple": {
-    "position": "18th",
+    "position": "19th",
     "score": 10.0
   },
   "leaderboard_detailed": {
@@ -40,8 +40,8 @@
           "photo_url": null
         }
       ],
-      "position": "18th",
-      "countdown": 25107887
+      "position": "19th",
+      "countdown": 25024828
     },
     "week": {
       "leaders": [
@@ -71,8 +71,8 @@
           "photo_url": null
         }
       ],
-      "position": "18th",
-      "countdown": 543507312
+      "position": "19th",
+      "countdown": 543424125
     },
     "month": {
       "leaders": [
@@ -103,7 +103,7 @@
         }
       ],
       "position": "44th",
-      "countdown": 1925907214
+      "countdown": 1925824035
     }
   },
   "recent_sends": [
