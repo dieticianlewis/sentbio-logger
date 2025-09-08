@@ -8,7 +8,7 @@
   },
   "leaderboard_simple_api": null,
   "leaderboard_simple": {
-    "position": "14th",
+    "position": "15th",
     "score": 10.0
   },
   "leaderboard_detailed": {
@@ -45,8 +45,8 @@
           "payout": 100
         }
       ],
-      "position": "14th",
-      "countdown": 51184418
+      "position": "15th",
+      "countdown": 51068749
     },
     "week": {
       "leaders": [
@@ -81,8 +81,8 @@
           "payout": 100
         }
       ],
-      "position": "14th",
-      "countdown": 569583952
+      "position": "15th",
+      "countdown": 569468194
     },
     "month": {
       "leaders": [
@@ -118,7 +118,7 @@
         }
       ],
       "position": "44th",
-      "countdown": 1951983874
+      "countdown": 1951868087
     }
   },
   "recent_sends": [
