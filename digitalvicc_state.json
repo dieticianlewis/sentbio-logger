@@ -3,5 +3,18 @@
   "leaderboard_simple_api": null,
   "leaderboard_simple": {},
   "leaderboard_detailed": {},
-  "recent_sends": []
+  "recent_sends": [
+    {
+      "sender": "dave",
+      "amount": "$250"
+    },
+    {
+      "sender": "Someone",
+      "amount": "\u20ac20"
+    },
+    {
+      "sender": "Someone",
+      "amount": "$50"
+    }
+  ]
 }
