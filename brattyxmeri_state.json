@@ -8,7 +8,7 @@
   },
   "leaderboard_simple_api": null,
   "leaderboard_simple": {
-    "position": "6th",
+    "position": "7th",
     "score": 9.0
   },
   "leaderboard_detailed": {
@@ -36,17 +36,17 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 12
+          "payout": 20
         },
         {
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 9
+          "payout": 12
         }
       ],
-      "position": "6th",
-      "countdown": 79981521
+      "position": "7th",
+      "countdown": 79861470
     },
     "week": {
       "leaders": [
@@ -72,17 +72,17 @@
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 12
+          "payout": 20
         },
         {
           "display_name": "Anonymous",
           "username": "Anonymous",
           "photo_url": null,
-          "payout": 9
+          "payout": 12
         }
       ],
-      "position": "6th",
-      "countdown": 598381005
+      "position": "7th",
+      "countdown": 598261030
     },
     "month": {
       "leaders": [
@@ -118,7 +118,7 @@
         }
       ],
       "position": "42nd",
-      "countdown": 1980780936
+      "countdown": 1980660902
     }
   },
   "recent_sends": [
