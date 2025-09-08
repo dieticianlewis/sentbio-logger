@@ -6,15 +6,15 @@
   "recent_sends": [
     {
       "sender": "Someone",
+      "amount": "\u20ac20"
+    },
+    {
+      "sender": "Someone",
       "amount": "$50"
     },
     {
       "sender": "nylonaddict",
       "amount": "$50"
-    },
-    {
-      "sender": "Someone",
-      "amount": "\u20ac50"
     }
   ]
 }
