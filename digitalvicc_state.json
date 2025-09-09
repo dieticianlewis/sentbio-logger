@@ -5,15 +5,15 @@
   "leaderboard_detailed": {},
   "recent_sends": [
     {
+      "sender": "Someone",
+      "amount": "$50"
+    },
+    {
       "sender": "Dave",
       "amount": "$250"
     },
     {
       "sender": "DumbDog",
-      "amount": "$100"
-    },
-    {
-      "sender": "Someone",
       "amount": "$100"
     }
   ]
