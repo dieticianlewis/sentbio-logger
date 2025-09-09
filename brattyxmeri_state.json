@@ -9,7 +9,7 @@
   "leaderboard_simple_api": null,
   "leaderboard_simple": {
     "position": "11th",
-    "score": 10.0
+    "score": 21.0
   },
   "leaderboard_detailed": {
     "day": {
@@ -41,7 +41,7 @@
         }
       ],
       "position": "11th",
-      "countdown": 68702467
+      "countdown": 68580543
     },
     "week": {
       "leaders": [
@@ -72,7 +72,7 @@
         }
       ],
       "position": "26th",
-      "countdown": 500701862
+      "countdown": 500579830
     },
     "month": {
       "leaders": [
@@ -103,7 +103,7 @@
         }
       ],
       "position": "45th",
-      "countdown": 1883101724
+      "countdown": 1882979723
     }
   },
   "recent_sends": [
