@@ -9,12 +9,12 @@
       "amount": "$50"
     },
     {
-      "sender": "dave",
-      "amount": "$250"
+      "sender": "Someone",
+      "amount": "$50"
     },
     {
-      "sender": "Someone",
-      "amount": "\u20ac20"
+      "sender": "dave",
+      "amount": "$250"
     }
   ]
 }
