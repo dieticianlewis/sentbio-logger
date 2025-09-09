@@ -8,104 +8,10 @@
   },
   "leaderboard_simple_api": null,
   "leaderboard_simple": {
-    "position": "24th",
-    "score": 10.0
+    "position": "2nd",
+    "score": 20.0
   },
-  "leaderboard_detailed": {
-    "day": {
-      "leaders": [
-        {
-          "display_name": "Anonymous",
-          "username": "Anonymous",
-          "photo_url": null
-        },
-        {
-          "display_name": "Anonymous",
-          "username": "Anonymous",
-          "photo_url": null
-        },
-        {
-          "display_name": "Anonymous",
-          "username": "Anonymous",
-          "photo_url": null
-        },
-        {
-          "display_name": "Anonymous",
-          "username": "Anonymous",
-          "photo_url": null
-        },
-        {
-          "display_name": "Anonymous",
-          "username": "Anonymous",
-          "photo_url": null
-        }
-      ],
-      "position": "24th",
-      "countdown": 57492
-    },
-    "week": {
-      "leaders": [
-        {
-          "display_name": "Anonymous",
-          "username": "Anonymous",
-          "photo_url": null
-        },
-        {
-          "display_name": "Anonymous",
-          "username": "Anonymous",
-          "photo_url": null
-        },
-        {
-          "display_name": "Anonymous",
-          "username": "Anonymous",
-          "photo_url": null
-        },
-        {
-          "display_name": "Anonymous",
-          "username": "Anonymous",
-          "photo_url": null
-        },
-        {
-          "display_name": "Anonymous",
-          "username": "Anonymous",
-          "photo_url": null
-        }
-      ],
-      "position": "24th",
-      "countdown": 518456901
-    },
-    "month": {
-      "leaders": [
-        {
-          "display_name": "Anonymous",
-          "username": "Anonymous",
-          "photo_url": null
-        },
-        {
-          "display_name": "Anonymous",
-          "username": "Anonymous",
-          "photo_url": null
-        },
-        {
-          "display_name": "Anonymous",
-          "username": "Anonymous",
-          "photo_url": null
-        },
-        {
-          "display_name": "Anonymous",
-          "username": "Anonymous",
-          "photo_url": null
-        },
-        {
-          "display_name": "Anonymous",
-          "username": "Anonymous",
-          "photo_url": null
-        }
-      ],
-      "position": "45th",
-      "countdown": 1900856777
-    }
-  },
+  "leaderboard_detailed": {},
   "recent_sends": [
     {
       "sender": "Someone",
