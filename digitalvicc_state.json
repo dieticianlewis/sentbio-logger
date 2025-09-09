@@ -9,12 +9,12 @@
       "amount": "$50"
     },
     {
-      "sender": "Dave",
-      "amount": "$250"
+      "sender": "Someone",
+      "amount": "$50"
     },
     {
-      "sender": "DumbDog",
-      "amount": "$100"
+      "sender": "Dave",
+      "amount": "$250"
     }
   ]
 }
