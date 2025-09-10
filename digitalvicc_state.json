@@ -10,11 +10,11 @@
     },
     {
       "sender": "Someone",
-      "amount": "$25"
+      "amount": "$50"
     },
     {
-      "sender": "nylonaddict",
-      "amount": "$111"
+      "sender": "Someone",
+      "amount": "$25"
     }
   ]
 }
