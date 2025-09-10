@@ -5,16 +5,16 @@
   "leaderboard_detailed": {},
   "recent_sends": [
     {
+      "sender": "nylonaddict",
+      "amount": "$111"
+    },
+    {
       "sender": "dumbdog",
       "amount": "$25"
     },
     {
       "sender": "Someone",
       "amount": "$50"
-    },
-    {
-      "sender": "Anonymous",
-      "amount": "$111"
     }
   ]
 }
