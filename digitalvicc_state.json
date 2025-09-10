@@ -6,15 +6,15 @@
   "recent_sends": [
     {
       "sender": "dumbdog",
+      "amount": "$25"
+    },
+    {
+      "sender": "dumbdog",
       "amount": "$50"
     },
     {
       "sender": "nylonaddict",
       "amount": "$111"
-    },
-    {
-      "sender": "dumbdog",
-      "amount": "$150"
     }
   ]
 }
