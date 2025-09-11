@@ -1,0 +1,50 @@
+name: Alquis-Only Wishlist Logger
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  log-alquis-wishlist:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # Caching is still good practice for speed
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install Python dependencies
+        # This script only needs 'requests', but we can still use the main
+        # requirements file to keep things simple.
+        run: pip install -r requirements.txt
+
+      # NOTE: All Playwright and Twitter steps have been removed.
+
+      - name: Run the Alquis Wishlist Logger script
+        run: python alquis_logger.py
+
+      - name: Commit and push if data changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          # A more specific commit message for this job
+          commit_message: "chore: Update alquis wishlist data"
+          commit_user_name: "GitHub Actions Bot"
+          commit_user_email: "actions@github.com"
